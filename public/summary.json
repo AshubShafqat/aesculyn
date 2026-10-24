@@ -1,0 +1,1337 @@
+{
+  "rows": 38401,
+  "columns": 35,
+  "features": [
+    "out_pkts",
+    "out_bytes",
+    "in_pkts",
+    "in_bytes",
+    "mean_pkt",
+    "std_pkt",
+    "mean_iat",
+    "std_iat",
+    "syn",
+    "rst",
+    "fin",
+    "n_dst_ports",
+    "n_src_ports",
+    "assoc_rq",
+    "assoc_ac",
+    "assoc_rj",
+    "abort",
+    "release",
+    "pdata_pkts",
+    "n_called_ae",
+    "n_calling_ae",
+    "bad_first_pdu",
+    "big_pdu_len",
+    "http_post",
+    "preamble_exec"
+  ],
+  "classes": [
+    "benign",
+    "recon",
+    "ae_bruteforce",
+    "assoc_flood",
+    "malformed_pdu",
+    "ransomware_like",
+    "exfiltration",
+    "preamble_polyglot"
+  ],
+  "distribution": {
+    "benign": 31652,
+    "recon": 1540,
+    "ae_bruteforce": 1205,
+    "assoc_flood": 984,
+    "malformed_pdu": 910,
+    "ransomware_like": 780,
+    "exfiltration": 774,
+    "preamble_polyglot": 556
+  },
+  "sites": {
+    "C": 14061,
+    "B": 13122,
+    "A": 11218
+  },
+  "sha256": "2babb39fedc77a53bcd6f2437219c5671156b982177944fb764a6079fa4b0059",
+  "archive": {
+    "entries": 397,
+    "feature_bytes": 7532310,
+    "formats": [
+      "",
+      ".csv",
+      ".npz",
+      ".parquet",
+      ".pcap"
+    ]
+  },
+  "schema": [
+    {
+      "name": "site",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "client_ip",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "window_start",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "out_pkts",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "out_bytes",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "in_pkts",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "in_bytes",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "mean_pkt",
+      "dtype": "float64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "std_pkt",
+      "dtype": "float64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "mean_iat",
+      "dtype": "float64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "std_iat",
+      "dtype": "float64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "syn",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "rst",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "fin",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "n_dst_ports",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "n_src_ports",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "assoc_rq",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "assoc_ac",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "assoc_rj",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "abort",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "release",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "pdata_pkts",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "n_called_ae",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "n_calling_ae",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "bad_first_pdu",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "big_pdu_len",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "http_post",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "preamble_exec",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "feature"
+    },
+    {
+      "name": "run_id",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "label_binary",
+      "dtype": "int64",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "label_class",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "scenario_id",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "split_block",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "split_time",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    },
+    {
+      "name": "split_site",
+      "dtype": "str",
+      "missing": 0,
+      "role": "excluded metadata / label"
+    }
+  ],
+  "missing_values": 0,
+  "duplicate_rows": 0,
+  "duplicate_feature_vectors": 229,
+  "label_mapping": {
+    "benign": 0,
+    "all_other_listed_classes": 1
+  },
+  "experiments": {
+    "split_site": {
+      "validation": {
+        "accuracy": 0.8068181818181818,
+        "macro_precision": 0.7506361064580473,
+        "macro_recall": 0.7788503253409146,
+        "macro_f1": 0.7456696916893459,
+        "weighted_f1": 0.8177175001640157,
+        "false_negatives": 171,
+        "false_positives": 404,
+        "false_negative_rate": 0.10614525139664804,
+        "false_positive_rate": 0.20230345518277415,
+        "confusion_matrix": [
+          [
+            1593,
+            0,
+            41,
+            109,
+            1,
+            130,
+            123,
+            0
+          ],
+          [
+            0,
+            428,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            12,
+            0,
+            257,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            4,
+            6,
+            0,
+            178,
+            6,
+            1,
+            0,
+            0
+          ],
+          [
+            12,
+            0,
+            0,
+            72,
+            149,
+            10,
+            0,
+            0
+          ],
+          [
+            49,
+            0,
+            0,
+            1,
+            0,
+            106,
+            11,
+            0
+          ],
+          [
+            65,
+            0,
+            0,
+            0,
+            0,
+            14,
+            89,
+            0
+          ],
+          [
+            29,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            111
+          ]
+        ],
+        "per_class": [
+          {
+            "class": "benign",
+            "precision": 0.9030612244897959,
+            "recall": 0.7976965448172258,
+            "f1": 0.8471151289550651,
+            "support": 1997
+          },
+          {
+            "class": "recon",
+            "precision": 0.9861751152073732,
+            "recall": 1.0,
+            "f1": 0.9930394431554525,
+            "support": 428
+          },
+          {
+            "class": "ae_bruteforce",
+            "precision": 0.8624161073825504,
+            "recall": 0.9553903345724907,
+            "f1": 0.9065255731922399,
+            "support": 269
+          },
+          {
+            "class": "assoc_flood",
+            "precision": 0.4930747922437673,
+            "recall": 0.9128205128205128,
+            "f1": 0.6402877697841727,
+            "support": 195
+          },
+          {
+            "class": "malformed_pdu",
+            "precision": 0.9551282051282052,
+            "recall": 0.6131687242798354,
+            "f1": 0.7468671679197996,
+            "support": 243
+          },
+          {
+            "class": "ransomware_like",
+            "precision": 0.4061302681992337,
+            "recall": 0.6347305389221557,
+            "f1": 0.4953271028037383,
+            "support": 167
+          },
+          {
+            "class": "exfiltration",
+            "precision": 0.3991031390134529,
+            "recall": 0.5297619047619048,
+            "f1": 0.4552429667519182,
+            "support": 168
+          },
+          {
+            "class": "preamble_polyglot",
+            "precision": 1.0,
+            "recall": 0.7872340425531915,
+            "f1": 0.880952380952381,
+            "support": 141
+          }
+        ],
+        "records": 3608
+      },
+      "test": {
+        "accuracy": 0.695745595186936,
+        "macro_precision": 0.6140334445887525,
+        "macro_recall": 0.7860274153460731,
+        "macro_f1": 0.6199355485003912,
+        "weighted_f1": 0.768105780768446,
+        "false_negatives": 207,
+        "false_positives": 3875,
+        "false_negative_rate": 0.09295015716210148,
+        "false_positive_rate": 0.3302087771623349,
+        "confusion_matrix": [
+          [
+            7860,
+            0,
+            325,
+            787,
+            6,
+            645,
+            2112,
+            0
+          ],
+          [
+            0,
+            508,
+            0,
+            0,
+            6,
+            0,
+            0,
+            0
+          ],
+          [
+            14,
+            0,
+            386,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            2,
+            9,
+            1,
+            303,
+            9,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            114,
+            177,
+            3,
+            0,
+            0
+          ],
+          [
+            78,
+            0,
+            0,
+            4,
+            0,
+            168,
+            11,
+            0
+          ],
+          [
+            94,
+            0,
+            0,
+            1,
+            0,
+            6,
+            147,
+            0
+          ],
+          [
+            19,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            165
+          ]
+        ],
+        "per_class": [
+          {
+            "class": "benign",
+            "precision": 0.9743399033097806,
+            "recall": 0.6697912228376651,
+            "f1": 0.793859206140794,
+            "support": 11735
+          },
+          {
+            "class": "recon",
+            "precision": 0.9825918762088974,
+            "recall": 0.9883268482490273,
+            "f1": 0.98545101842871,
+            "support": 514
+          },
+          {
+            "class": "ae_bruteforce",
+            "precision": 0.5421348314606742,
+            "recall": 0.9625935162094763,
+            "f1": 0.6936208445642409,
+            "support": 401
+          },
+          {
+            "class": "assoc_flood",
+            "precision": 0.2506203473945409,
+            "recall": 0.9323076923076923,
+            "f1": 0.3950456323337679,
+            "support": 325
+          },
+          {
+            "class": "malformed_pdu",
+            "precision": 0.8939393939393939,
+            "recall": 0.6020408163265306,
+            "f1": 0.7195121951219513,
+            "support": 294
+          },
+          {
+            "class": "ransomware_like",
+            "precision": 0.20388349514563106,
+            "recall": 0.6436781609195402,
+            "f1": 0.3096774193548387,
+            "support": 261
+          },
+          {
+            "class": "exfiltration",
+            "precision": 0.06475770925110132,
+            "recall": 0.592741935483871,
+            "f1": 0.11675933280381252,
+            "support": 248
+          },
+          {
+            "class": "preamble_polyglot",
+            "precision": 1.0,
+            "recall": 0.8967391304347826,
+            "f1": 0.9455587392550142,
+            "support": 184
+          }
+        ],
+        "records": 13962
+      },
+      "partition_counts": {
+        "train": 20690,
+        "val": 3608,
+        "test": 13962
+      },
+      "duplicate_overlap_removed": {
+        "train": 0,
+        "val": 42,
+        "test": 99
+      },
+      "sites": {
+        "train": [
+          "A",
+          "B"
+        ],
+        "val": [
+          "A",
+          "B"
+        ],
+        "test": [
+          "C"
+        ]
+      },
+      "time_ranges": {
+        "train": [
+          1792459058,
+          1792551324
+        ],
+        "val": [
+          1792551054,
+          1792555100
+        ],
+        "test": [
+          1792459060,
+          1792555072
+        ]
+      }
+    },
+    "split_time": {
+      "validation": {
+        "accuracy": 0.7640330811191273,
+        "macro_precision": 0.7702872466016913,
+        "macro_recall": 0.7537952018002008,
+        "macro_f1": 0.7386263141983442,
+        "weighted_f1": 0.7677299758392985,
+        "false_negatives": 410,
+        "false_positives": 664,
+        "false_negative_rate": 0.14070006863417983,
+        "false_positive_rate": 0.23979776092452149,
+        "confusion_matrix": [
+          [
+            2105,
+            0,
+            25,
+            222,
+            3,
+            155,
+            259,
+            0
+          ],
+          [
+            0,
+            506,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            32,
+            0,
+            592,
+            0,
+            0,
+            16,
+            0,
+            0
+          ],
+          [
+            4,
+            12,
+            0,
+            384,
+            11,
+            1,
+            0,
+            0
+          ],
+          [
+            19,
+            0,
+            0,
+            192,
+            130,
+            2,
+            0,
+            0
+          ],
+          [
+            148,
+            0,
+            0,
+            9,
+            0,
+            261,
+            13,
+            0
+          ],
+          [
+            196,
+            0,
+            0,
+            2,
+            0,
+            9,
+            200,
+            0
+          ],
+          [
+            11,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            164
+          ]
+        ],
+        "per_class": [
+          {
+            "class": "benign",
+            "precision": 0.8369781312127237,
+            "recall": 0.7602022390754785,
+            "f1": 0.7967448902346708,
+            "support": 2769
+          },
+          {
+            "class": "recon",
+            "precision": 0.9768339768339769,
+            "recall": 1.0,
+            "f1": 0.98828125,
+            "support": 506
+          },
+          {
+            "class": "ae_bruteforce",
+            "precision": 0.9594813614262561,
+            "recall": 0.925,
+            "f1": 0.9419252187748608,
+            "support": 640
+          },
+          {
+            "class": "assoc_flood",
+            "precision": 0.4746600741656366,
+            "recall": 0.9320388349514563,
+            "f1": 0.628992628992629,
+            "support": 412
+          },
+          {
+            "class": "malformed_pdu",
+            "precision": 0.9027777777777778,
+            "recall": 0.37900874635568516,
+            "f1": 0.5338809034907598,
+            "support": 343
+          },
+          {
+            "class": "ransomware_like",
+            "precision": 0.5878378378378378,
+            "recall": 0.605568445475638,
+            "f1": 0.5965714285714286,
+            "support": 431
+          },
+          {
+            "class": "exfiltration",
+            "precision": 0.423728813559322,
+            "recall": 0.4914004914004914,
+            "f1": 0.45506257110352666,
+            "support": 407
+          },
+          {
+            "class": "preamble_polyglot",
+            "precision": 1.0,
+            "recall": 0.9371428571428572,
+            "f1": 0.967551622418879,
+            "support": 175
+          }
+        ],
+        "records": 5683
+      },
+      "test": {
+        "accuracy": 0.7882954345143663,
+        "macro_precision": 0.7433197683777937,
+        "macro_recall": 0.7703128254605581,
+        "macro_f1": 0.7318112252380582,
+        "weighted_f1": 0.8043644101166734,
+        "false_negatives": 274,
+        "false_positives": 740,
+        "false_negative_rate": 0.11257189811010682,
+        "false_positive_rate": 0.22846557579499846,
+        "confusion_matrix": [
+          [
+            2499,
+            0,
+            34,
+            211,
+            0,
+            190,
+            305,
+            0
+          ],
+          [
+            0,
+            630,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            16,
+            0,
+            383,
+            0,
+            0,
+            4,
+            0,
+            0
+          ],
+          [
+            4,
+            9,
+            0,
+            288,
+            5,
+            1,
+            0,
+            0
+          ],
+          [
+            11,
+            0,
+            0,
+            136,
+            216,
+            8,
+            0,
+            0
+          ],
+          [
+            93,
+            0,
+            0,
+            1,
+            0,
+            155,
+            8,
+            0
+          ],
+          [
+            106,
+            0,
+            0,
+            0,
+            0,
+            12,
+            135,
+            0
+          ],
+          [
+            44,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            166
+          ]
+        ],
+        "per_class": [
+          {
+            "class": "benign",
+            "precision": 0.9011900468806346,
+            "recall": 0.7715344242050015,
+            "f1": 0.8313373253493014,
+            "support": 3239
+          },
+          {
+            "class": "recon",
+            "precision": 0.9859154929577465,
+            "recall": 0.9968354430379747,
+            "f1": 0.991345397324941,
+            "support": 632
+          },
+          {
+            "class": "ae_bruteforce",
+            "precision": 0.9184652278177458,
+            "recall": 0.9503722084367245,
+            "f1": 0.9341463414634145,
+            "support": 403
+          },
+          {
+            "class": "assoc_flood",
+            "precision": 0.4521193092621664,
+            "recall": 0.9381107491856677,
+            "f1": 0.6101694915254237,
+            "support": 307
+          },
+          {
+            "class": "malformed_pdu",
+            "precision": 0.968609865470852,
+            "recall": 0.5822102425876011,
+            "f1": 0.7272727272727273,
+            "support": 371
+          },
+          {
+            "class": "ransomware_like",
+            "precision": 0.4189189189189189,
+            "recall": 0.603112840466926,
+            "f1": 0.4944178628389154,
+            "support": 257
+          },
+          {
+            "class": "exfiltration",
+            "precision": 0.3013392857142857,
+            "recall": 0.5335968379446641,
+            "f1": 0.3851640513552068,
+            "support": 253
+          },
+          {
+            "class": "preamble_polyglot",
+            "precision": 1.0,
+            "recall": 0.7867298578199052,
+            "f1": 0.8806366047745359,
+            "support": 211
+          }
+        ],
+        "records": 5673
+      },
+      "partition_counts": {
+        "train": 26881,
+        "val": 5683,
+        "test": 5673
+      },
+      "duplicate_overlap_removed": {
+        "train": 0,
+        "val": 78,
+        "test": 86
+      },
+      "sites": {
+        "train": [
+          "A",
+          "B",
+          "C"
+        ],
+        "val": [
+          "A",
+          "B",
+          "C"
+        ],
+        "test": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "time_ranges": {
+        "train": [
+          1792459058,
+          1792546948
+        ],
+        "val": [
+          1792546354,
+          1792551324
+        ],
+        "test": [
+          1792550894,
+          1792555100
+        ]
+      }
+    },
+    "split_block": {
+      "validation": {
+        "accuracy": 0.7416034669555797,
+        "macro_precision": 0.6522124461572646,
+        "macro_recall": 0.6375254336707118,
+        "macro_f1": 0.5766913332370377,
+        "weighted_f1": 0.7741244452628075,
+        "false_negatives": 273,
+        "false_positives": 603,
+        "false_negative_rate": 0.30743243243243246,
+        "false_positive_rate": 0.21504992867332381,
+        "confusion_matrix": [
+          [
+            2201,
+            0,
+            1,
+            139,
+            2,
+            215,
+            246,
+            0
+          ],
+          [
+            0,
+            184,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            144,
+            0,
+            92,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            11,
+            2,
+            0,
+            97,
+            8,
+            1,
+            0,
+            0
+          ],
+          [
+            13,
+            0,
+            0,
+            46,
+            34,
+            9,
+            0,
+            0
+          ],
+          [
+            14,
+            0,
+            0,
+            1,
+            0,
+            39,
+            0,
+            0
+          ],
+          [
+            78,
+            0,
+            0,
+            0,
+            0,
+            11,
+            25,
+            0
+          ],
+          [
+            13,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            66
+          ]
+        ],
+        "per_class": [
+          {
+            "class": "benign",
+            "precision": 0.8896523848019402,
+            "recall": 0.7849500713266762,
+            "f1": 0.8340280409245927,
+            "support": 2804
+          },
+          {
+            "class": "recon",
+            "precision": 0.989247311827957,
+            "recall": 1.0,
+            "f1": 0.9945945945945946,
+            "support": 184
+          },
+          {
+            "class": "ae_bruteforce",
+            "precision": 0.989247311827957,
+            "recall": 0.3898305084745763,
+            "f1": 0.5592705167173252,
+            "support": 236
+          },
+          {
+            "class": "assoc_flood",
+            "precision": 0.34275618374558303,
+            "recall": 0.8151260504201681,
+            "f1": 0.4825870646766169,
+            "support": 119
+          },
+          {
+            "class": "malformed_pdu",
+            "precision": 0.7727272727272727,
+            "recall": 0.3333333333333333,
+            "f1": 0.4657534246575343,
+            "support": 102
+          },
+          {
+            "class": "ransomware_like",
+            "precision": 0.14181818181818182,
+            "recall": 0.7222222222222222,
+            "f1": 0.2370820668693009,
+            "support": 54
+          },
+          {
+            "class": "exfiltration",
+            "precision": 0.09225092250922509,
+            "recall": 0.21929824561403508,
+            "f1": 0.12987012987012986,
+            "support": 114
+          },
+          {
+            "class": "preamble_polyglot",
+            "precision": 1.0,
+            "recall": 0.8354430379746836,
+            "f1": 0.9103448275862069,
+            "support": 79
+          }
+        ],
+        "records": 3692
+      },
+      "test": {
+        "accuracy": 0.73537936913896,
+        "macro_precision": 0.6961533346909995,
+        "macro_recall": 0.6839701741923249,
+        "macro_f1": 0.6187864079968133,
+        "weighted_f1": 0.7590510076872203,
+        "false_negatives": 453,
+        "false_positives": 940,
+        "false_negative_rate": 0.2858044164037855,
+        "false_positive_rate": 0.21962616822429906,
+        "confusion_matrix": [
+          [
+            3340,
+            0,
+            1,
+            211,
+            0,
+            330,
+            398,
+            0
+          ],
+          [
+            0,
+            331,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            259,
+            0,
+            113,
+            0,
+            0,
+            9,
+            0,
+            0
+          ],
+          [
+            0,
+            6,
+            0,
+            160,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            19,
+            0,
+            0,
+            123,
+            104,
+            1,
+            0,
+            0
+          ],
+          [
+            94,
+            0,
+            0,
+            3,
+            0,
+            131,
+            10,
+            0
+          ],
+          [
+            81,
+            0,
+            0,
+            0,
+            0,
+            2,
+            79,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            55
+          ]
+        ],
+        "per_class": [
+          {
+            "class": "benign",
+            "precision": 0.8805694700764566,
+            "recall": 0.780373831775701,
+            "f1": 0.827449523101697,
+            "support": 4280
+          },
+          {
+            "class": "recon",
+            "precision": 0.9821958456973294,
+            "recall": 1.0,
+            "f1": 0.9910179640718563,
+            "support": 331
+          },
+          {
+            "class": "ae_bruteforce",
+            "precision": 0.9912280701754386,
+            "recall": 0.29658792650918636,
+            "f1": 0.45656565656565656,
+            "support": 381
+          },
+          {
+            "class": "assoc_flood",
+            "precision": 0.32193158953722334,
+            "recall": 0.935672514619883,
+            "f1": 0.4790419161676647,
+            "support": 171
+          },
+          {
+            "class": "malformed_pdu",
+            "precision": 0.9541284403669725,
+            "recall": 0.42105263157894735,
+            "f1": 0.5842696629213483,
+            "support": 247
+          },
+          {
+            "class": "ransomware_like",
+            "precision": 0.2769556025369979,
+            "recall": 0.5504201680672269,
+            "f1": 0.3684950773558369,
+            "support": 238
+          },
+          {
+            "class": "exfiltration",
+            "precision": 0.162217659137577,
+            "recall": 0.4876543209876543,
+            "f1": 0.24345146379044685,
+            "support": 162
+          },
+          {
+            "class": "preamble_polyglot",
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 55
+          }
+        ],
+        "records": 5865
+      },
+      "partition_counts": {
+        "train": 28759,
+        "val": 3692,
+        "test": 5865
+      },
+      "duplicate_overlap_removed": {
+        "train": 0,
+        "val": 17,
+        "test": 68
+      },
+      "sites": {
+        "train": [
+          "A",
+          "B",
+          "C"
+        ],
+        "val": [
+          "A",
+          "B",
+          "C"
+        ],
+        "test": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "time_ranges": {
+        "train": [
+          1792459058,
+          1792555100
+        ],
+        "val": [
+          1792462200,
+          1792552798
+        ],
+        "test": [
+          1792462800,
+          1792553998
+        ]
+      }
+    }
+  },
+  "primary": "split_site",
+  "model": "Gaussian naive Bayes \u00b7 log1p features \u00b7 uniform priors",
+  "limitations": [
+    "Offline baseline; no clinical or deployment validation.",
+    "All feature rows share one run_id; independent-run generalization cannot be measured.",
+    "Raw PCAP and sequence data are not parsed or exposed.",
+    "Labels are supplied annotations; capture provenance and attack realism are unverified.",
+    "Feature independence assumption and uniform priors limit score interpretation.",
+    "No SHAP/LIME, federated clients, differential privacy, or enforcement integration.",
+    "Three predefined split experiments reuse the corpus; they are not independent replications."
+  ]
+}
