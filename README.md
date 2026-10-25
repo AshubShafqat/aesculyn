@@ -12,7 +12,7 @@ Source repository: https://github.com/AshubShafqat/aesculyn
 
 Deployment status is shown in the repository Actions tab.
 
-The public edition in `public/` shows aggregate evaluation measurements. It does not accept uploads, expose individual telemetry, or perform online inference. The complete local Python application supports dataset inspection, CSV batch inference, exact Gaussian decision explanations, model evaluation, and session events. Federated learning and enforcement are not implemented.
+The public edition in `public/` shows aggregate baseline and v2 research measurements. Open the Research Lab and Federated Learning pages for the new study. It does not accept uploads, expose individual telemetry, or perform online inference. The complete local Python application supports dataset inspection, CSV batch inference, exact Gaussian decision explanations, model evaluation, and session events. The v2 study adds actual local-process FedAvg/FedProx experiments. Distributed hospital deployment and network enforcement are not implemented.
 
 ## Run locally
 
@@ -58,3 +58,31 @@ Site C holdout, 13,962 test flows: multiclass accuracy 69.57%, macro F1 61.99%, 
 ## Publication
 
 No explicit open-source license is assigned. Add a license appropriate to your ownership before licensing redistribution to others. Third-party dataset rights are not granted by this repository.
+
+
+## New: model comparison and federated experiments
+
+The new Research Lab and Federated Experiments views report measured results from a reproducible local study. The original Gaussian baseline and its inference endpoint are preserved separately.
+
+```sh
+python -m pip install -r requirements.txt
+python -m research.run --archive /path/to/authorized/dataset.zip --output artifacts/research-v2-final
+python research_report.py --experiment artifacts/research-v2-final --public public/research.json
+python -m unittest test_research -v
+python research_predict.py --experiment artifacts/research-v2-final --input batch.csv --output predictions.csv
+python server.py
+```
+
+Use a new output directory for each run. `requirements-research-lock.txt` records the NumPy/pandas/threadpoolctl versions used here. `RESEARCH_RESULTS.md` explains the protocols and measured results. `research/` contains the actual training implementation; `test_research.py` checks its gradients, CART splitting, probability metrics, and client aggregation.
+
+Experiments compare Gaussian naive Bayes, weighted multinomial logistic regression, a histogram-binned bootstrap CART random forest, and a small 25→64→32→8 MLP, plus local-only MLP, FedAvg, and FedProx runs. Implementations are NumPy reference implementations, not scikit-learn, PyTorch, or Flower. A native-module application-control restriction prevented those third-party ML backends from being used. Nothing bypasses Windows security policy.
+
+One spawned process per simulated site performs real local SGD. The coordinator shares parameters and aggregate normalization statistics and averages returned models by sample count. This is an offline single-machine federation experiment, not an authenticated hospital deployment, secure aggregation system, or differential privacy guarantee.
+
+The unseen-site protocol trains/validates only on A and B and tests later C windows. The temporal protocol trains three site clients and tests later windows from all three; site C is not unseen in this protocol. A 60-second purge and global time ordering separate partitions. Exact feature vectors are deduplicated using label-independent precedence. Four conflicting feature-label groups are audited; evaluation labels never curate training membership.
+
+The corpus was inspected previously. These are diagnostic reused-corpus tests, not a fresh independent benchmark. The v2 partitions also differ from the original site-holdout baseline, so their raw scores must not be compared as if they used the same test set. Three seeds measure initialization variability, not independence of data.
+
+The research inference CLI and `/api/research/predict` endpoint use saved, checksum-verified research checkpoints. Inputs require the same 25 features and integer counters. Scores are uncalibrated. The original `/api/predict` endpoint continues to use the original Gaussian baseline. No model has been silently substituted.
+
+Private client partitions, model weights, per-record predictions, and draft experiment artifacts stay under ignored `artifacts/`. Only aggregate results are exported to `public/research.json`. The public website runs no training or inference.

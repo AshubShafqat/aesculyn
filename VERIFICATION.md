@@ -1,3 +1,5 @@
+> Historical baseline verification. For the newer data audit, model comparison, and federated study see RESEARCH_RESULTS.md.
+
 # Verification report — 24 October 2026
 
 ## Delivered application

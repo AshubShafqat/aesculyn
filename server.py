@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from engine import ROOT,FEATURES,CLASSES,validate_frame,predict,terms,load_model
 EVENTS=[];LOCK=threading.Lock()
+RESEARCH_ROOT=ROOT/'artifacts/research-v2-final'
 class Handler(BaseHTTPRequestHandler):
     def log_message(self,*args): pass
     def send(self,data,status=200,kind='application/json'):
@@ -15,6 +16,9 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         u=urlparse(self.path);q=parse_qs(u.query)
         try:
+            if u.path in ('/api/research','/research.json'):
+                f=ROOT/'public/research.json'
+                return self.send(json.loads(f.read_text(encoding='utf-8')))
             if u.path=='/api/summary':
                 f=ROOT/'artifacts/summary.json'
                 return self.send(json.loads(f.read_text()) if f.exists() else {'error':'Dataset not prepared. Run engine.py first.'},200 if f.exists() else 503)
@@ -34,7 +38,7 @@ class Handler(BaseHTTPRequestHandler):
                 r=d.iloc[[i]];model=load_model();t=terms(validate_frame(r),model)[0];scores=t.sum(1)+np.log(model['prior']);order=np.argsort(scores);winner=int(order[-1]);runner=int(order[-2]);contribution=t[winner]-t[runner]
                 return self.send({'row':i,'prediction':CLASSES[winner],'reference':CLASSES[runner],'actual':str(r.label_class.iloc[0]),'margin':float(scores[winner]-scores[runner]),'prior_margin':float(np.log(model['prior'][winner]/model['prior'][runner])),'contributions':[{'feature':c,'value':float(r[c].iloc[0]),'contribution':float(contribution[j])} for j,c in enumerate(FEATURES)]})
             if u.path=='/api/export': return self.send((ROOT/'artifacts/summary.json').read_bytes(),kind='application/json; charset=utf-8')
-            allowed={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/favicon.svg':'favicon.svg'}
+            allowed={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/favicon.svg':'favicon.svg','/research.js':'research.js'}
             if u.path not in allowed: return self.send({'error':'Not found'},404)
             f=ROOT/'static'/allowed[u.path];return self.send(f.read_bytes(),kind=mimetypes.guess_type(f.name)[0] or 'text/plain')
         except (ValueError,KeyError) as e: self.send({'error':str(e)},400)
@@ -42,13 +46,21 @@ class Handler(BaseHTTPRequestHandler):
         except Exception: self.send({'error':'Request failed; check local artifacts and input format.'},500)
     def do_POST(self):
         # Browser same-origin protection, no CORS, and bounded CSV input.
-        if self.path!='/api/predict': return self.send({'error':'Not found'},404)
+        post_url=urlparse(self.path)
+        if post_url.path not in ('/api/predict','/api/research/predict'): return self.send({'error':'Not found'},404)
         if self.headers.get('Origin') not in (None,'http://'+self.headers.get('Host','')): return self.send({'error':'Origin not allowed'},403)
         try:
             n=int(self.headers.get('Content-Length','0'))
             if n<=0 or n>5_000_000: raise ValueError('CSV upload must be 1 byte to 5 MB')
             d=pd.read_csv(io.BytesIO(self.rfile.read(n)))
             if len(d)>10000: raise ValueError('Batch limit is 10,000 rows')
+            if post_url.path=='/api/research/predict':
+                from research_predict import infer
+                q=parse_qs(post_url.query);start=time.perf_counter()
+                with LOCK:
+                    result=infer(d,RESEARCH_ROOT,q.get('protocol',['unseen_site'])[0],q.get('method',[None])[0],q.get('seed',[None])[0])
+                result['inference_ms']=(time.perf_counter()-start)*1000
+                return self.send(result)
             x=validate_frame(d);start=time.perf_counter();pred=predict(x,load_model());elapsed=time.perf_counter()-start
             counts={c:int((pred==c).sum()) for c in CLASSES};now=datetime.now(timezone.utc).isoformat()
             event={'timestamp':now,'rows':len(d),'predictions':counts,'malicious_predictions':int((pred!='benign').sum()),'severity':'Review required' if (pred!='benign').any() else 'Informational','explanation':'Exact model decomposition available for held-out examples'}

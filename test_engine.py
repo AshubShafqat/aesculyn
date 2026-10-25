@@ -1,4 +1,5 @@
-import unittest,tempfile,zipfile,json,urllib.request,urllib.error
+import unittest,tempfile,zipfile,json,urllib.request,urllib.error,os
+BASE=os.environ.get("AESCULYN_TEST_URL","http://127.0.0.1:8765")
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -36,13 +37,13 @@ class EngineTests(unittest.TestCase):
   x=np.array([[i+1]*len(FEATURES) for i in range(16)],float);y=np.array(CLASSES*2);m=fit(x,y);np.testing.assert_allclose(m['means'][0],np.log1p(x[[0,8]]).mean(0))
 class ApiTests(unittest.TestCase):
  def get(self,path):
-  return json.load(urllib.request.urlopen('http://127.0.0.1:8765'+path))
+  return json.load(urllib.request.urlopen(BASE+path))
  def test_health_and_safe_rows(self):
   self.assertTrue(self.get('/api/health')['model_artifact']);r=self.get('/api/rows')['rows'];self.assertEqual(len(r),20);self.assertNotIn('client_ip',r[0])
  def test_inference_and_event(self):
-  d=pd.read_csv(ROOT/'artifacts/flows.csv').head(3);req=urllib.request.Request('http://127.0.0.1:8765/api/predict',d.to_csv(index=False).encode(),headers={'Content-Type':'text/csv'});res=json.load(urllib.request.urlopen(req));self.assertEqual(res['rows'],3);self.assertEqual(sum(res['counts'].values()),3);self.assertTrue(self.get('/api/events'))
+  d=pd.read_csv(ROOT/'artifacts/flows.csv').head(3);req=urllib.request.Request(BASE+'/api/predict',d.to_csv(index=False).encode(),headers={'Content-Type':'text/csv'});res=json.load(urllib.request.urlopen(req));self.assertEqual(res['rows'],3);self.assertEqual(sum(res['counts'].values()),3);self.assertTrue(self.get('/api/events'))
  def test_invalid_upload(self):
-  req=urllib.request.Request('http://127.0.0.1:8765/api/predict',b'x\n1')
+  req=urllib.request.Request(BASE+'/api/predict',b'x\n1')
   with self.assertRaises(urllib.error.HTTPError) as e:urllib.request.urlopen(req)
   self.assertEqual(e.exception.code,400)
  def test_invalid_explanation_index(self):

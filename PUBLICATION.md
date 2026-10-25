@@ -19,3 +19,11 @@
 Repository: https://github.com/AshubShafqat/aesculyn
 
 The public showcase is deployed from public/ with the GitHub Pages workflow. Check the repository Actions tab for the latest deployment result. Full Python inference remains local; no dataset files or trained model weights are published.
+
+## V2 research update
+
+Research Lab: https://ashubshafqat.github.io/aesculyn/#research
+
+Federated experiments: https://ashubshafqat.github.io/aesculyn/#federated
+
+The v2 publication contains aggregate measurements only. Actual client partitions, model weights, per-record predictions, and canceled draft experiments are excluded. The original baseline remains separately labeled.
