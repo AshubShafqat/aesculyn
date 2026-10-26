@@ -9,3 +9,4 @@ data
 *.zip
 *.pcap
 *.parquet
+aesculyn-modelstore.zip.b64

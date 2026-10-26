@@ -67,7 +67,8 @@ def handler_for(app):
    if method!='GET' and self.headers.get('Origin') not in (None,app.origin,app.origin.replace('127.0.0.1','localhost') if not app.secure else app.origin):return self.fail('Origin is not allowed.',403)
    if method=='GET' and path in ['/','/app.js','/style.css','/favicon.svg']:
     name={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/favicon.svg':'favicon.svg'}[path];file=ROOT/'application/ui'/name;kind={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml'}[file.suffix];return self.send(file.read_bytes(),kind=kind)
-   if method=='GET' and path=='/api/health':return self.send({'status':'ok','analysis_ready':bool(app.registry.models),'mode':'offline batch analysis','storage_available':shutil.disk_usage(app.store.root).free>2_000_000})
+   if method=='GET' and path=='/api/health':
+    ready=bool(app.registry.models);return self.send({'status':'ok' if ready else 'not_ready','analysis_ready':ready,'mode':'offline batch analysis','storage_available':shutil.disk_usage(app.store.root).free>2_000_000},200 if ready else 503)
    if method=='POST' and path in ['/api/auth/register','/api/auth/login']:
     if not app.store.throttle('auth:'+self.client_address[0],limit=20):return self.fail('Too many authentication attempts. Try again in ten minutes.',429)
     d=self.payload()

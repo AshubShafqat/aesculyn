@@ -4,26 +4,7 @@ A working local research application for offline DICOM network-feature analysis.
 
 ## Start the application
 
-Use Python 3.11 or newer. From the extracted application folder:
-
-```sh
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux: source .venv/bin/activate
-python -m pip install -r requirements-research-lock.txt
-python app.py
-```
-
-On Windows, from PowerShell in the extracted folder, run `& .\Start-Aesculyn.ps1 -DatasetPath "C:\Users\Malik\OneDrive\Attachments\Netsol project dataset.zip"` to enable local training against your attached dataset, or `& .\Start-Aesculyn.ps1` to run with training disabled. On macOS/Linux, run `python app.py`. Open http://127.0.0.1:8780 and create your own account. There are no default credentials. Stop with Ctrl+C. Restarting preserves accounts and analysis history in `appdata/`. Pending jobs are marked failed after a restart and can be retried. Passwords cannot be recovered by email in this release.
-
-The private `aesculyn-application-local.zip` includes the three small inference checkpoints in `modelstore/`. The public source ZIP deliberately excludes weights, account databases, uploads and raw data. If starting from public source, provision an authorized completed study first:
-
-```sh
-python -m application.provision --experiment artifacts/research-v2-final --output modelstore
-```
-
-That command verifies saved checkpoint hashes and creates the registry from the study report and training-only normalization/ranges. It requires the complete private experiment, including client training partitions. It does not retrain. Keep the resulting registry and checkpoints together. A checkpoint hash detects a change relative to its manifest; it is not a signature from an independent authority.
-
+On Windows, extract the local application ZIP and run `Start-Aesculyn.ps1` from PowerShell. The launcher checks for Python 3.11+, creates a local `.venv`, installs the pinned dependencies on first launch, and opens the browser after starting the server. To enable local training with your authorized dataset, pass its ZIP path: `& .\Start-Aesculyn.ps1 -DatasetPath "C:\\path\\to\\Netsol project dataset.zip"`. First launch requires internet access to install dependencies. On macOS/Linux, use Python 3.11+, create a virtual environment, install `requirements-research-lock.txt`, then run `python app.py`. Open http://127.0.0.1:8780 and create your own account. There are no default credentials. Stop with Ctrl+C. Restarting preserves accounts and analysis history in `appdata/`.
 ## Application flow
 
 1. Create an account or sign in. Each account owns one private workspace on this server.
@@ -49,7 +30,7 @@ Not implemented: packet capture or PCAP-to-feature extraction, live PACS integra
 
 ## Hosting a pilot
 
-The application requires a Python server and persistent disk. GitHub Pages cannot execute this backend. Included Docker/Caddy files are a starting configuration for a small supervised pilot, not a tested production deployment. Docker and public HTTPS were not available for deployment verification in the development environment.
+The application requires a Python server. GitHub Pages cannot execute this backend. The public source intentionally excludes model weights. For Render, add a Secret File named aesculyn-modelstore.zip.b64 containing the separately supplied base64 model bundle; startup validates and unpacks it into temporary runtime storage. Render provides RENDER_EXTERNAL_URL, which Aesculyn uses automatically. Set the HTTP health check path to /api/health; it returns 503 until checkpoints load. Free Render services have ephemeral filesystems, so accounts and histories can disappear after restarts or spin-down. Included Docker/Caddy files are starting configuration for a supervised pilot, not production deployment.
 
 1. Obtain a server with Docker Compose, persistent storage and a domain pointing to it.
 2. Copy the source and private `modelstore/` to that server using a secure channel. Never commit `appdata/`, model packages or patient data to a public repository.
@@ -68,3 +49,4 @@ python -m unittest test_application -v
 ```
 
 Application tests requiring checkpoints skip when `modelstore/` is absent. The `ids/` modules add evidence-based offline PCAP indicators and manual review with a dry-run response ladder; packet-derived ML inference is disabled because these extracted feature semantics are not validated against the training generator. The full private development run passed all 12 tests (none skipped); existing engine/research/integration suites passed another 42 tests. Research integration tests require the completed private experiment and the original research server on port 8767. See `APPLICATION_VERIFICATION.md` for scope and current browser verification limitations.
+
