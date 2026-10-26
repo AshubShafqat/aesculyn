@@ -4,6 +4,10 @@
 
 A hospital-inspired dashboard with clinical white surfaces, teal accents, medical scanner artwork, a cross-and-shield identity, responsive navigation, and transparent model reporting.
 
+## Authenticated application
+
+The new `app.py` release adds real accounts, private workspaces, validated CSV uploads, background MLP inference, persistent analysis history, local integrated-gradient explanations, model cards, evaluation and report downloads. The latest release adds an offline PCAP rules-only parser, manual incident review, a configurable dry-run risk ladder, real training-job logs, and interactive charts from saved experiment results. Download the private-weight local bundle as `outputs/aesculyn-application-local.zip`. Use [Start-Aesculyn.ps1](Start-Aesculyn.ps1) on Windows or see [APPLICATION.md](APPLICATION.md) for setup, the full flow and hosting instructions. Start with `python app.py` and open http://127.0.0.1:8780 after provisioning the private model package. Public source excludes weights and account data. GitHub Pages continues to serve the static research showcase; the authenticated Python backend is not publicly hosted.
+
 ## Public showcase
 
 Public showcase: https://AshubShafqat.github.io/aesculyn/

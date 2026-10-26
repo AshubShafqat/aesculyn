@@ -1,0 +1,11 @@
+**/__pycache__
+.git
+.venv
+appdata
+modelstore
+artifacts
+data
+.env
+*.zip
+*.pcap
+*.parquet

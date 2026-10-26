@@ -1,0 +1,7 @@
+# Replace with the real domain and run Caddy on the host.
+your-domain.example {
+    request_body {
+        max_size 5MB
+    }
+    reverse_proxy 127.0.0.1:8780
+}
